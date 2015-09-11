@@ -44,21 +44,15 @@ except ImportError:
 		print('\nsimplui requires json support. upgrade to python 2.6 or install the simplejson module.\n')
 		sys.exit(0)
 
-class Theme(dict):
-	def __init__(self, arg):
-		loader = pyglet.resource.Loader(path=arg)
 		
-		input = json.loads( open(arg+'/theme.json').read() )
-		
-		image = loader.texture( input['image'] )
-		
-		for k, v in input.items():
+class BaseTheme(dict):
+	def __init__(self, arg, image):
+		for k, v in arg.items():
 			if isinstance(v, dict):
 				temp = {}
 				
 				for k2, v2 in v.items():
 					if k2.startswith('image'):
-						
 						temp[k2] = NinePatch( image.get_region(*v2) )
 					else:
 						temp[k2] = v2
@@ -66,5 +60,15 @@ class Theme(dict):
 				self[k] = temp
 			elif k != 'image':
 				self[k] = v
-			
-			self['image'] = image
+
+		self['image'] = image
+
+
+class Theme(BaseTheme):
+	def __init__(self, path):
+		loader = pyglet.resource.Loader(path=path)
+		
+		with open(path +'/theme.json') as theme_file:
+			info = json.loads( theme_file.read() )
+			image = loader.texture( info['image'] )
+			BaseTheme.__init__(self, info, image)
