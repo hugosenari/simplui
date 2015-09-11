@@ -58,7 +58,7 @@ class BaseTheme(dict):
 						temp[k2] = v2
 				
 				self[k] = temp
-			elif k != 'image':
+			else:
 				self[k] = v
 
 		self['image'] = image
