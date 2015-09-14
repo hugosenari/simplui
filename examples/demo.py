@@ -1,9 +1,8 @@
 #! /usr/bin/env python
-from __future__ import division
+from base import my_dir
 # import pyglet, as us
-import sys
-sys.path.append("../")
 import pyglet
+
 from simplui.theme import Theme
 from simplui.frame import Frame
 from simplui.label import Label
@@ -25,7 +24,7 @@ pyglet.options['debug_gl'] = False
 window = pyglet.window.Window(800, 600, caption='gui demo', vsync=False)
 
 # load some gui themes
-themes = [Theme('../themes/pywidget'), Theme('../themes/macos')]
+themes = [Theme(my_dir +  '/themes/pywidget'), Theme(my_dir + '/themes/macos')]
 theme = 0
 
 # create a frame to contain our gui, the full size of our window
