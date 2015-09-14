@@ -31,9 +31,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import pyglet
 
-from .shape import Rectangle
 from .widget import Widget
 from .container import Container
 from .geometry import Size
@@ -51,11 +49,11 @@ class Layout(Container):
 		w, h = 0, self.padding[self._axis]
 		for c in self.children:
 			c.determine_size()
-			min = c._pref_size
+			min_size = c._pref_size
 			
-			if min[1-self._axis] > w:
-				w = min[1-self._axis]
-			h += min[self._axis] + self.padding[self._axis]
+			if min_size[1-self._axis] > w:
+				w = min_size[1-self._axis]
+			h += min_size[self._axis] + self.padding[self._axis]
 		
 		if self._axis == 1:
 			self._pref_size = Size(w + self.padding[1-self._axis]*2, h)
@@ -84,15 +82,15 @@ class Layout(Container):
 			else:
 				c._y, c._x = self.padding[1-self._axis], th
 			
-			min = c._pref_size
+			min_size = c._pref_size
 			if c.expandable[1-self._axis]:
 				nw = size[1-self._axis] - self.padding[1-self._axis]*2
 			else:
-				nw = min[1-self._axis]
+				nw = min_size[1-self._axis]
 			if c.expandable[self._axis]:
-				nh = min[self._axis] + extrah
+				nh = min_size[self._axis] + extrah
 			else:
-				nh = min[self._axis]
+				nh = min_size[self._axis]
 			
 			if self._axis == 1:
 				c.reset_size(Size(nw, nh))

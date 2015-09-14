@@ -31,7 +31,6 @@
 # POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from pyglet.gl import *
 
 from .widget import Widget
 

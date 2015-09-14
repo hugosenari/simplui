@@ -30,8 +30,8 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
+import pyglet
 
-from pyglet.gl import *
 
 class Rectangle(object):
 	"""Basic rectangular element for renderering and hit testing"""

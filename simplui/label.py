@@ -31,9 +31,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import pyglet
 
-from .shape import Rectangle, BasicLabel
+from .shape import BasicLabel
 from .widget import Widget
 from .geometry import Size
 
@@ -49,8 +48,6 @@ class Label(Widget):
 		Widget.__init__(self, **kwargs)
 		
 		self.content = BasicLabel(text, font_size=8, color=(0,0,0,255), x=0, y=0, anchor_x='left', anchor_y='bottom')
-		font = self.content.document.get_font()
-		height = font.ascent - font.descent
 		
 		self.elements['content'] = self.content
 	

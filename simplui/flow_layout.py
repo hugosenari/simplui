@@ -31,7 +31,6 @@
 # POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import pyglet
 
 from .widget import Widget
 from .container import Container
@@ -56,9 +55,9 @@ class FlowLayout(Container):
 		
 		for c in self.children:
 			c.determine_size()
-			min = c._pref_size
+			min_size = c._pref_size
 			
-			if w + min.w < maxw:
+			if w + min_size.w < maxw:
 				line.append(c)
 			else:				
 				self.lines.append((maxh, w, line))
@@ -67,9 +66,9 @@ class FlowLayout(Container):
 				h += maxh + self.padding[1]
 				w, maxh = self.padding[0], 0
 			
-			if min.h > maxh:
-				maxh = min.h
-			w += min.w + self.padding[0]
+			if min_size.h > maxh:
+				maxh = min_size.h
+			w += min_size.w + self.padding[0]
 		
 		if len(line) > 0:
 			self.lines.append((maxh, w, line))

@@ -31,11 +31,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import pyglet
-from pyglet.gl import *
-
-from .shape import Rectangle
-from .widget import Widget
+from pyglet import graphics, gl
 from .container import Container
 
 class Frame(Container):
@@ -57,7 +53,7 @@ class Frame(Container):
 		return self._theme
 	def _set_theme(self, theme):
 		self.update_theme(theme)
-		self.update_batch(pyglet.graphics.Batch(), None)
+		self.update_batch(graphics.Batch(), None)
 		self.update_layout()
 	theme = property(_get_theme, _set_theme)
 	
@@ -66,18 +62,18 @@ class Frame(Container):
 		
 		count = len(self.children)
 		for c, i in zip(self.children, range(count-1, -1, -1)):
-			order = pyglet.graphics.OrderedGroup(i, group)
+			order = graphics.OrderedGroup(i, group)
 			c.update_batch(batch, order)
 		
 	def add(self, child):
 		Container.add(self, child)
 		
-		self.update_batch(pyglet.graphics.Batch(), self._group)
+		self.update_batch(graphics.Batch(), self._group)
 	
 	def remove(self, child):
 		Container.remove(self, child)
 		
-		self.update_batch(pyglet.graphics.Batch(), self._group)
+		self.update_batch(graphics.Batch(), self._group)
 	
 	def get_element_by_name(self, name):
 		return self.names[name]
@@ -94,7 +90,7 @@ class Frame(Container):
 				self.children.remove(c)
 				self.children.insert(0, c)
 				c.on_mouse_press(x, y, button, modifiers)
-				self.update_batch(pyglet.graphics.Batch(), self._group)
+				self.update_batch(graphics.Batch(), self._group)
 				return
 	
 	def on_mouse_drag(self, x, y, dx, dy, button, modifiers):
@@ -126,10 +122,10 @@ class Frame(Container):
 		self.update_global_coords()
 		self.update_elements()
 		
-		glPushAttrib(GL_ENABLE_BIT)
-		glEnable(GL_BLEND)
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+		gl.glPushAttrib(gl.GL_ENABLE_BIT)
+		gl.glEnable(gl.GL_BLEND)
+		gl.glBlendFunc(gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA)
 		
 		self.batch.draw()
 		
-		glPopAttrib()
+		gl.glPopAttrib()
