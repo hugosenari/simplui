@@ -46,6 +46,7 @@ http://developer.android.com/guide/topics/graphics/2d-graphics.html#nine-patch.
 __all__ = ["NinePatch"]
 
 class PixelData(object):
+
 	def __init__(self, image):
 		image_data = image.get_image_data()
 		self.has_alpha = 'A' in image_data.format
@@ -56,20 +57,11 @@ class PixelData(object):
 	def is_black(self, x, y):
 		p = (y * self.width + x) * 4
 		if self.has_alpha:
-			val = self.data[p+3] #byte
-			if val != '\xFF': # python2
-				if type(val) != int or int(val)!= 255: #ptyhon3
-					return False # transparent
-
-		return self.data[p:p+3] == b'\x00\x00\x00'
-
-	def is_black_p3(self, x, y):
-		p = (y * self.width + x) * 4
-		if self.has_alpha:
-			if self.data[p+3] != b'\xFF':
+			if not self.data[p + 3] in (b'\xFF', 255):
 				return False # transparent
 
-		return self.data[p:p+3] == b'\x00\x00\x00'
+		return b'\x00\x00\x00' == self.data[p:p + 3]
+
 
 class NinePatch(object):
 	"""A scalable 9-patch image.
@@ -181,9 +173,9 @@ class NinePatch(object):
 		
 		# Scale texture coordinates to match the tex_coords pyglet gives us
 		# (these aren't necessarily 0-1 as the texture may have been packed)
-		(tu1, tv1, _, 
-		 _, _, _, 
-		 tu2, tv2, _, 
+		(tu1, tv1, _,
+		 _, _, _,
+		 tu2, tv2, _,
 		 _, _, _) = self.texture.tex_coords
 		u_scale = tu2 - tu1
 		u_bias = tu1
