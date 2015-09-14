@@ -1,6 +1,3 @@
-import ez_setup
-ez_setup.use_setuptools()
-
 from setuptools import setup, find_packages
 
 setup(
@@ -9,7 +6,7 @@ setup(
 	author = 'Tristam MacDonald',
 	author_email = 'swiftcoder@gmail.com',
 	description = 'Light-weight GUI toolkit for pyglet',
-	url = 'http://simplui.googlecode.com/',
+	url = 'https://github.com/swiftcoder/simplui',
 	platforms = ['all'],
 	license = 'BSD',
 	classifiers = [
@@ -19,6 +16,7 @@ setup(
 		'Natural Language :: English',
 		'Operating System :: OS Independent',
 		'Programming Language :: Python :: 2',
+		'Programming Language :: Python :: 3',
 		'Topic :: Scientific/Engineering :: Human Machine Interfaces',
 		'Topic :: Software Development :: User Interfaces',
 	],
