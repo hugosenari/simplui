@@ -31,8 +31,9 @@
 # POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import pyglet
 from .ninepatch import NinePatch
+from os import path
+from pyglet.resource import Loader
 
 try:
 	import json
@@ -66,9 +67,18 @@ class BaseTheme(dict):
 
 class Theme(BaseTheme):
 	def __init__(self, path):
-		loader = pyglet.resource.Loader(path=path)
+		loader = Loader(path=path)
 		
-		with open(path +'/theme.json') as theme_file:
+		with open(path +'theme.json') as theme_file:
 			info = json.loads( theme_file.read() )
 			image = loader.texture( info['image'] )
 			BaseTheme.__init__(self, info, image)
+
+
+def my_path(name):
+	a_path = path.dirname(path.abspath(__file__))
+	a_path += path.sep + 'themes' + path.sep + name + path.sep
+	return a_path 
+
+PyWidget = Theme(my_path("pywidget"))
+Macos = Theme(my_path("macos"))

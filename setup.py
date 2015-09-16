@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 from setuptools import setup, find_packages
 
 setup(
@@ -22,5 +23,7 @@ setup(
 	],
 	
 	packages = find_packages(),
+	package_dir={'simplui': 'simplui'},
+	package_data={'simplui': ['themes/*']},
 	install_requires = ['simplejson >= 2.0', 'pyglet >= 1.1']
 )

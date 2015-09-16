@@ -1,5 +1,9 @@
 #! /usr/bin/env python
-from base import my_dir
+#insert projet at path
+import sys
+from  os import path
+my_dir = path.dirname(path.abspath(__file__))
+sys.path.append(my_dir + "/../")
 # import pyglet, as us
 import pyglet
 
@@ -24,7 +28,7 @@ pyglet.options['debug_gl'] = False
 window = pyglet.window.Window(800, 600, caption='gui demo', vsync=False)
 
 # load some gui themes
-themes = [Theme(my_dir +  '/themes/pywidget'), Theme(my_dir + '/themes/macos')]
+themes = [Theme(my_dir +  '/../simplui/themes/pywidget/'), Theme(my_dir + '/../simplui/themes/macos/')]
 theme = 0
 
 # create a frame to contain our gui, the full size of our window
