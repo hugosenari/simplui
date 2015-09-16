@@ -24,6 +24,6 @@ setup(
 	
 	packages = find_packages(),
 	package_dir={'simplui': 'simplui'},
-	package_data={'simplui': ['themes/*']},
+	package_data={'simplui': ['themes/*/*']},
 	install_requires = ['simplejson >= 2.0', 'pyglet >= 1.1']
 )
