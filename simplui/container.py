@@ -101,7 +101,8 @@ class Container(Widget):
 		self.children.append(child)
 		child.parent = self
 		
-		child.update_theme(self.theme)
+		
+		self.theme and child.update_theme(self.theme)
 		child.update_batch(self._batch, self._group)
 		self.find_root().update_layout()
 		

@@ -1,7 +1,11 @@
 {
 		"font": "Lucida Grande",
 		"font_size": 10, "font_size_small": 8,
-		"font_color": [0, 0, 0, 255],
+		"font_color": [0, 0, 0, 255], "icon_color_down": [0, 0, 0, 128],
+		
+		"icon": "FontAwesome",
+		"icon_size": 18, "icon_size_small": 14,
+		"icon_color": [0, 0, 0, 255], "icon_color_down": [0, 0, 0, 128],
 		
 		"image": "theme.png",
 		

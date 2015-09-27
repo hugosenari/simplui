@@ -3,7 +3,7 @@
 import sys
 from  os import path
 my_dir = path.dirname(path.abspath(__file__))
-sys.path.append(my_dir + "/../")
+sys.path = [my_dir + "/../"] + sys.path 
 # import pyglet, as us
 import pyglet
 
@@ -18,6 +18,7 @@ from simplui.slider import Slider
 from simplui.checkbox import Checkbox
 from simplui.text_input import TextInput
 from simplui.flow_layout import FlowLayout
+from simplui.icons import LabelIcon, AUTOMOBILE, AT, ButtonIcon
 
 # disable error checking for increased performance
 pyglet.options['debug_gl'] = False
@@ -99,8 +100,11 @@ dialogue = Dialogue('Inspector', x=200, y=500, content=
 			VLayout(name='misc_layout', children=[
 			# a random label
 				Label('Hello, World!'),
-			# and a clickable button
-				Button('Click me!', action=button_action)
+			# a label icon
+				LabelIcon(AUTOMOBILE, action=button_action),
+			# a button icon
+				ButtonIcon(AT, action=button_action),
+
 				])
 			)
 		])

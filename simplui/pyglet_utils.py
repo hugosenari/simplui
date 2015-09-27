@@ -32,6 +32,7 @@
 # ----------------------------------------------------------------------
 
 import pyglet
+from os import path
 
 def replace_layout_batch(layout, batch=None, group=None):
 	'''Replace the batch and group currently in use by a pyglet.text.Layout subclass'''
@@ -57,3 +58,13 @@ def replace_layout_batch(layout, batch=None, group=None):
 		layout.top_group.top = layout._get_top(layout._get_lines())
 	
 	layout._update()
+
+
+def my_path(name, prefix='themes'):
+	a_path = path.dirname(path.abspath(__file__))
+	a_path += path.sep
+	a_path += prefix
+	a_path += path.sep
+	a_path += name
+	a_path += path.sep
+	return a_path

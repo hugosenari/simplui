@@ -52,9 +52,10 @@ class Frame(Container):
 	def _get_theme(self):
 		return self._theme
 	def _set_theme(self, theme):
-		self.update_theme(theme)
-		self.update_batch(graphics.Batch(), None)
-		self.update_layout()
+		if theme:
+			self.update_theme(theme)
+			self.update_batch(graphics.Batch(), None)
+			self.update_layout()
 	theme = property(_get_theme, _set_theme)
 	
 	def update_batch(self, batch, group):

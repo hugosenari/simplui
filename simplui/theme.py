@@ -32,7 +32,8 @@
 # ----------------------------------------------------------------------
 
 from .ninepatch import NinePatch
-from os import path
+from .icons import add_fontawesome, FONT_NAME
+from .pyglet_utils import my_path
 from pyglet.resource import Loader
 
 try:
@@ -63,6 +64,9 @@ class BaseTheme(dict):
 				self[k] = v
 
 		self['image'] = image
+		
+		if FONT_NAME == self.get('icon', None):
+			add_fontawesome() 
 
 
 class Theme(BaseTheme):
@@ -72,13 +76,11 @@ class Theme(BaseTheme):
 		with open(path +'theme.json') as theme_file:
 			info = json.loads( theme_file.read() )
 			image = loader.texture( info['image'] )
-			BaseTheme.__init__(self, info, image)
+			BaseTheme.__init__(self, info, image) 
 
 
-def my_path(name):
-	a_path = path.dirname(path.abspath(__file__))
-	a_path += path.sep + 'themes' + path.sep + name + path.sep
-	return a_path 
+def pywidget_theme():
+	return Theme(my_path("pywidget"))
 
-PyWidget = Theme(my_path("pywidget"))
-Macos = Theme(my_path("macos"))
+def macos_theme():
+	return Theme(my_path("macos"))

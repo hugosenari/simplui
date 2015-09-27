@@ -34,7 +34,8 @@
 
 from .shape import BasicLabel
 from .widget import Widget
-from .geometry import Size
+from .geometry import Size, Rect
+from pyglet import window, event
 
 class Label(Widget):
 	"""Textual label"""
@@ -43,6 +44,7 @@ class Label(Widget):
 		
 		Keyword arguments:
 		name -- unique widget identifier
+        action -- on click action
 		'''
 		kwargs.setdefault('halign', 'left')
 		Widget.__init__(self, **kwargs)
@@ -50,6 +52,7 @@ class Label(Widget):
 		self.content = BasicLabel(text, font_size=8, color=(0,0,0,255), x=0, y=0, anchor_x='left', anchor_y='bottom')
 		
 		self.elements['content'] = self.content
+		self.action = kwargs.get('action') 
 	
 	def _get_text(self):
 		return self.elements['content'].text
@@ -70,7 +73,7 @@ class Label(Widget):
 			
 			self._w, self._h = self.content.content_width, height
 			
-			self._pref_size = Size(self.content.content_width, height)
+			self._pref_size = Size(self._w, self._h)
 	
 	def update_elements(self):		
 		if self._dirty and self.theme:
@@ -90,3 +93,18 @@ class Label(Widget):
 			self.content.y = self._gy + bottom
 		
 		Widget.update_elements(self)
+
+	def on_mouse_release(self, x, y, button, modifiers):
+		res = None
+		
+		if self.action and\
+		 button == window.mouse.LEFT and\
+		 self.hit_test(x, y):
+		    self.action(self)
+		    res = event.EVENT_HANDLED
+		
+		res = res or Widget.on_mouse_release(self, x, y, button, modifiers)
+		return res or event.EVENT_UNHANDLED
+
+	def bounds(self):
+		return Rect(self._gx, self._gy, self.content.content_width, self.h)
