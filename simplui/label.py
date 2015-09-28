@@ -100,8 +100,8 @@ class Label(Widget):
 		if self.action and\
 		 button == window.mouse.LEFT and\
 		 self.hit_test(x, y):
-		    self.action(self)
-		    res = event.EVENT_HANDLED
+			self.action(self)
+			res = event.EVENT_HANDLED
 		
 		res = res or Widget.on_mouse_release(self, x, y, button, modifiers)
 		return res or event.EVENT_UNHANDLED
